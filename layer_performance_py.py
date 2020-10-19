@@ -146,7 +146,8 @@ if not os.path.isfile("layers_dta.xlsx") :
 
 # import database from excel - see parameters.py file
 data_hy_w36 = pd.read_excel(working_path + "/" + 'layers_dta.xlsx' ,sheet_name= group1[2]) # sheet name is defined in parameter.py 
-#print(data_hy_w36.columns)
+print(data_hy_w36.columns)
+
 # convert to numpy
 data_1 = data_hy_w36[['feed_intake_min','feed_intake_max', 'hen_week_mort_cumulative', 'hen_day_egg_cum_min', 'hen_day_egg_cum_max', 'egg_weight_avg' ]].values  # input database and convert to np array
 production_wks = data_1.shape[0] # define the number of rows in database
@@ -630,6 +631,41 @@ delta_max_y_1 = delta_cum_median_layer_week_1[delta_cum_median_layer_week_1.argm
 
 weeks_axis =np.linspace(18, production_wks + 18, production_wks)   # creat axis for charts (production weeks)
 
+####################################### cost charts ################################
+#stackplot_colors = ["#d47332", "#377369", "#006de1"]
+#stackplot_labels =['Pullet', 'Feed', 'Aditiv']
+             
+fig, ax = plt.subplots()
+ax.stackplot(weeks_axis,
+             pullet_cost_median_1,
+             feed_cost_cum_median_week_1_no_add,
+             aditiv_cum_cost_median_layer_week_1,
+             colors = stackplot_colors,
+             labels = stackplot_labels,
+             alpha = 1)
+
+ax.legend(loc='upper left',
+          fontsize=fontsize_legend_1,
+          )
+ax.grid(alpha=.3)
+ax.set_title('{}\n {} - {}'.format(stack_title_1, group1[0],group1[1]),
+             fontsize= fontsize_title_1,
+             )
+ax.set_ylabel(stack_ylabel_1,
+              fontsize=fontsize_y_axis_1,
+              )
+ax.set_xlabel(stack_xlabel_1,
+              fontsize=fontsize_x_axis_1,
+              )
+plt.savefig('main_costs_age.png',
+            dpi=dpi_charts,
+            transparent=-True,
+            )
+plt.show()
+
+
+
+###################################### operational return chart #####################
 plt.plot(weeks_axis,
          delta_cum_q1_layer_week_1,
          label = label_1[0],
@@ -659,7 +695,7 @@ plt.legend(loc='best',
            fontsize=fontsize_legend_1
            )
 plt.xlabel("Weeks of Age",
-           fontsize=fontize_x_axis_1,
+           fontsize=fontsize_x_axis_1,
            fontstyle = fontstyle_x_axis_1)
 plt.ylabel('Operational return / layer (LC)')
 
@@ -672,9 +708,7 @@ else :
       x_fact = delta_max_x_1 + 5
       y_fact = delta_max_y_1 + ((ymax-ymin)/5)
 
-
-
-plt.annotate("Max. return \n {} wks".format(delta_max_x_1),
+plt.annotate("Max. return \n {} wks".format(delta_max_x_1),  # plot the max return rate week
              fontsize = fontsize_annot_1,
             
             xy=(delta_max_x_1, delta_max_y_1), xycoords='data',
@@ -686,7 +720,7 @@ plt.hlines(0,
            18,
            100,
            linestyle = 'dotted',
-           linewidth = .8,
+           linewidth = 1,
            color = 'r',
            alpha=.5)
 plt.grid(alpha=.3)
@@ -707,7 +741,6 @@ print(index_error)
 #      connectionstyle="arc3")
 #      )
 
-   
 plt.savefig('operational_return.png',
             dpi=dpi_charts,
             transparent=-True,

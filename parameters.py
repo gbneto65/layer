@@ -50,7 +50,7 @@ pullet_cost_1  = [5, 7, 6, 't']  # min, max., mp, distribution
 
 
 # feed costs
-feed_cost_ton_1 = [1000, 1700, 1500, 't'] # min, max., mp, distribution
+feed_cost_ton_1 = [800, 1300, 900, 't'] # min, max., mp, distribution
 
 # aditive cost 
 aditiv_cost_ton_1 = [9, 15, 10, 'f']
