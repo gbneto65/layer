@@ -631,6 +631,9 @@ delta_max_y_1 = delta_cum_median_layer_week_1[delta_cum_median_layer_week_1.argm
 
 weeks_axis =np.linspace(18, production_wks + 18, production_wks)   # creat axis for charts (production weeks)
 
+#min_pullet = np.amin(pullet_cost_median_1)
+
+
 ####################################### cost charts ################################
 #stackplot_colors = ["#d47332", "#377369", "#006de1"]
 #stackplot_labels =['Pullet', 'Feed', 'Aditiv']
@@ -640,6 +643,9 @@ ax.stackplot(weeks_axis,
              pullet_cost_median_1,
              feed_cost_cum_median_week_1_no_add,
              aditiv_cum_cost_median_layer_week_1,
+             vetcost_cum_cost_median_layer_week_1,
+             labor_cum_cost_median_layer_week_1,
+             other_cum_cost_median_layer_week_1,
              colors = stackplot_colors,
              labels = stackplot_labels,
              alpha = 1)
@@ -657,12 +663,53 @@ ax.set_ylabel(stack_ylabel_1,
 ax.set_xlabel(stack_xlabel_1,
               fontsize=fontsize_x_axis_1,
               )
+# text for % of each cost parameter
+
+ax.text(row_anal+5,
+        (feed_cost_cum_median_week_1_no_add[row_anal, ]/2),
+        'Feed: {} %'.format(round_np(feed_perc_cost_cum_median_week_1_no_add[row_anal,])),
+        fontsize = fontsize_annot_1,
+        )
+ax.text(row_anal+5,
+        (pullet_cost_median_1[row_anal, ]/2),
+        'Pullet: {} %'.format(round_np(pullet_perc_cost_median_1[row_anal,])),
+        fontsize = fontsize_annot_1,
+        )
+
+ax.text(row_anal+5,
+        aditiv_cum_cost_median_layer_week_1[row_anal,]/2 +
+         feed_cost_cum_median_week_1_no_add[row_anal, ] +
+         pullet_cost_median_1[row_anal, ],
+        'Adit. {} %'.format(round_np(aditiv_perc_cost_cum_median_week_1[row_anal,])),
+        fontsize = fontsize_annot_1,
+        )
+
+ax.text(row_anal+5,
+        vetcost_cum_cost_q1_layer_week_1[row_anal,]/2 +
+        aditiv_cum_cost_median_layer_week_1[row_anal,] +
+         feed_cost_cum_median_week_1_no_add[row_anal, ] +
+         pullet_cost_median_1[row_anal, ] + 2,
+        'Vet. {} %'.format(round_np(vetcost_perc_cost_cum_median_week_1[row_anal,])),
+        fontsize = fontsize_annot_1,
+        )
+ymin, ymax = plt.ylim()
+ax.vlines(row_anal+18,
+          ymin,
+          ymax,
+          colors='#5d5d5d',
+          linewidth = line_with_1,
+          linestyle = line_sty_1)
+
+ax.text(84, (ymax-ymin)*.13*-1,
+        'Cost ratios at {} weeks'.format(row_anal+18),
+        fontsize = fontsize_annot_1,
+        alpha=.5)
+
 plt.savefig('main_costs_age.png',
             dpi=dpi_charts,
             transparent=-True,
             )
 plt.show()
-
 
 
 ###################################### operational return chart #####################
