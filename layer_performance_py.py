@@ -603,6 +603,8 @@ totalearn_perc_cum_q3_week_1 = percent(totalearn_cum_tot_rate_1, high)
 
 delta_cum_week_1 = total_earn_cum_week_1 - total_costs_1 # operational result ////
 
+
+          
 delta_cum_median_layer_week_1 = percent(delta_cum_week_1, med)
 delta_cum_q1_layer_week_1 = percent(delta_cum_week_1, low)
 delta_cum_q3_layer_week_1 = percent(delta_cum_week_1, high)
@@ -901,6 +903,25 @@ plt.savefig('operational_expenses_pie.png',
             transparent=-True,
             )
 plt.show()
+
+#################################################################################
+# probability plot of operating results
+
+axis100 = np.arange(0, 100, 1)
+a = np.empty(100)
+
+for i in range(100) :
+    a[i]= (percent(delta_cum_week_1[[row_anal, ]] , i ))
+
+print (axis100.shape)    
+print (a.shape)
+
+fig, ax = plt.subplots()
+ax.plot(a, 100 - axis100)
+ax.set_yticks(np.arange(0, 110, 10))
+ax.grid(alpha=.3)
+plt.show()
+
 
 ##################################################################################
                       

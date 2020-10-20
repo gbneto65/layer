@@ -17,7 +17,7 @@ genetic1 = 1  # 1 - Hyline W36 - White / 2 - to be defined
 
 n_layers = 50000 # to be used to calculated birds / cost
 prod_week_analysis = 100   # usually 100 - define the production week for cost / earnings analysis - usually 100 wks (varies from 18 - 100)
-n_repl = 200 # idealy at least 3000
+n_repl = 500 # idealy at least 3000
 
 wks_per_month = 4.348 # avg weeks in a month
 wks_per_year = 52.1429 # avg weeks per year
