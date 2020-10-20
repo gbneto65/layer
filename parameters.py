@@ -111,5 +111,5 @@ elif genetic ==3 :
     pass
 else:
     print('genetic not defined' * 20)
-    error(i)
+    alert_file()
     sys.exit()

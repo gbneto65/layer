@@ -1,15 +1,10 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Oct  7 11:38:16 2020
-"""
 
 ######################################################################################
 # layer performance - comparison tool
 # stochastick approach
 # Python 
-# Version - 0.3 beta - improvements - change the performance during prefixed periods (disease outbreak simulation)
+# Version - 0.4 beta - improvements - change the performance during prefixed periods (disease outbreak simulation)
 # github gbneto65
-
 #####################################################################################
 
 import pandas as pd
@@ -22,6 +17,7 @@ from setup_parameters import *  # extra file with setup variables
 from setup_charts_parameters import *  # extra file with setup variables
 from parameters import *
 import os
+import psutil  # for RAM free 
 
 
 def rnd_same(min, mp, max, distr) :  # generate random numbers and create a np. array with production_wks (83) , number of replicates (n_repl)
@@ -78,6 +74,12 @@ def alert_file() :
         winsound.Beep(sd1[0],sd1[1])
         sys.exit()
 
+def memory() : # print the ram free memory
+    stats = psutil.virtual_memory()  # returns a named tuple
+    # you can calculate percentage of available memory
+    available = getattr(stats, 'available')
+    print('Memory RAM free: {}'.format(round(available/1000000000,1)))
+    
 
 # part of the Layers performance project
 #
@@ -253,6 +255,8 @@ losses_rnd_layer_week_1 = rnd_same(losses_cost_layer_week_1[0],
                                    losses_cost_layer_week_1[1],
                                    losses_cost_layer_week_1[3])
 losses_rnd_cum_layer_week_1 = np.cumsum(losses_rnd_layer_week_1, dtype = float, axis=0)  # cumulative other eventual losses /////
+
+memory()
 
 ################ EARNINGS  ####################################################################
 # earnings - egg sales + others
@@ -987,6 +991,7 @@ print(pullet_cost_median_1.shape)
 #print(pullet_var_cost_rate_1)
 #print(pullet_tot_cost_rate_1)
 
+memory()
 
        
                 
