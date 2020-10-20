@@ -603,7 +603,7 @@ delta_cum_median_layer_week_1 = percent(delta_cum_week_1, med)
 delta_cum_q1_layer_week_1 = percent(delta_cum_week_1, low)
 delta_cum_q3_layer_week_1 = percent(delta_cum_week_1, high)
 
-delta_cum_tot_rate_1 = (total_earn_cum_week_1 -total_costs_1)  / total_costs_1 * 100  # margin ////
+delta_cum_tot_rate_1 = (total_earn_cum_week_1 - total_costs_1) / total_earn_cum_week_1 * 100  # margin ////
 
 delta_perc_cum_median_week_1 = percent(delta_cum_tot_rate_1, med)
 delta_perc_cum_q1_week_1 = percent(delta_cum_tot_rate_1, low)
@@ -635,9 +635,9 @@ weeks_axis =np.linspace(18, production_wks + 18, production_wks)   # creat axis 
 
 
 ####################################### cost charts ################################
-#stackplot_colors = ["#d47332", "#377369", "#006de1"]
-#stackplot_labels =['Pullet', 'Feed', 'Aditiv']
-             
+# setup parameters for the charts are located in "setup_charts_parameters.py"
+
+"""           
 fig, ax = plt.subplots()
 ax.stackplot(weeks_axis,
              pullet_cost_median_1,
@@ -705,11 +705,87 @@ ax.text(84, (ymax-ymin)*.13*-1,
         fontsize = fontsize_annot_1,
         alpha=.5)
 
-plt.savefig('main_costs_age.png',
+plt.savefig('main_costs_by_wk.png',
             dpi=dpi_charts,
             transparent=-True,
             )
 plt.show()
+"""
+
+           
+fig, ax = plt.subplots()
+ax.stackplot(weeks_axis,
+             pullet_cost_median_1,
+             feed_cost_cum_median_week_1_no_add,
+             aditiv_cum_cost_median_layer_week_1,
+             vetcost_cum_cost_median_layer_week_1,
+             labor_cum_cost_median_layer_week_1,
+             other_cum_cost_median_layer_week_1,
+             colors = stackplot_colors,
+             labels = stackplot_labels,
+             alpha = .7)
+
+ax.stackplot(weeks_axis,
+        totalearn_cum_q1_layer_week_1,
+        colors = '	#88d8b0',
+        alpha=.4,
+        )
+"""
+ax.legend(loc='upper left',
+          fontsize=fontsize_legend_1,
+          )
+"""
+ax.grid(alpha=.3)
+ax.set_title('{}\n {} - {}'.format(stack_title2_1, group1[0],group1[1]),
+             fontsize= fontsize_title_1,
+             )
+ax.set_ylabel(stack_ylabel2_1,
+              fontsize=fontsize_y_axis_1,
+              )
+ax.set_xlabel(stack_xlabel2_1,
+              fontsize=fontsize_x_axis_1,
+              )
+# text for % of each cost parameter
+
+ax.text(row_anal-4,
+        total_cum_cost_median_layer_week_1[row_anal,] +
+        (totalearn_cum_median_layer_week_1[row_anal,] -
+         total_cum_cost_median_layer_week_1[row_anal,])/2.1,
+        'Operating result*: {} %'.format(round_np(delta_perc_cum_median_week_1[row_anal,])),
+        fontsize = fontsize_annot_1,
+        )
+ax.text(row_anal-10,
+        total_cum_cost_median_layer_week_1[row_anal,] +
+        (totalearn_cum_median_layer_week_1[row_anal,] -
+         total_cum_cost_median_layer_week_1[row_anal,])/5,
+        'Earnings',
+        fontsize = fontsize_annot_1+1,
+        )
+
+ax.text(row_anal-10,
+        total_cum_cost_median_layer_week_1[row_anal,] / 3, 
+        'Costs',
+        fontsize = fontsize_annot_1+1,
+        )
+ymin, ymax = plt.ylim()
+ax.vlines(row_anal+18,
+          total_cum_cost_median_layer_week_1[row_anal,],
+          totalearn_cum_median_layer_week_1[row_anal,],
+          colors='#5d5d5d',
+          linewidth = line_with_1,
+          linestyle = line_sty_1)
+
+ax.text(90, (ymax-ymin)*.13*-1,
+        '*: at {} weeks'.format(row_anal+18),
+        fontsize = fontsize_annot_1,
+        alpha=.5)
+
+plt.savefig('main_earnings_by_wk.png',
+            dpi=dpi_charts,
+            transparent=-True,
+            )
+plt.show()
+
 
 
 ###################################### operational return chart #####################

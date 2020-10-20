@@ -47,3 +47,7 @@ stackplot_labels =[\
 stack_title_1 = 'Main cumulative variable costs / layer / age'
 stack_ylabel_1 = "Cum. cost / layer / age (LC)"
 stack_xlabel_1 = "weeks of age"
+
+stack_title2_1 = 'Operating result / layer / age (LC)'
+stack_ylabel2_1 = "costs & earnings / layer / age (LC)"
+stack_xlabel2_1 = "weeks of age"
