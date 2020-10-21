@@ -28,6 +28,12 @@ def rnd_same(min, mp, max, distr) :  # generate random numbers and create a np. 
         return np.random.uniform(min, max, (production_wks,n_repl))
     if distr.lower() == 'f' : # fixed value
         return np.full((production_wks,n_repl),mp, dtype=float )
+    else :
+        winsound.Beep(sd1[0],sd1[1])
+        winsound.Beep(sd2[0],sd2[1])
+        winsound.Beep(sd1[0],sd1[1])
+        print('Verify distribution letter\n' * 20)
+        sys.exit()
 
 def transp_and_tile(param) :  # transpose initial array and create a np. array with production_wks (83) , number of replicates (n_repl) with equal values (no randomic)
      transp = np.transpose(param)
@@ -602,8 +608,8 @@ totalearn_perc_cum_q3_week_1 = percent(totalearn_cum_tot_rate_1, high)
 # operational Result:  earnings - total costs
 
 delta_cum_week_1 = total_earn_cum_week_1 - total_costs_1 # operational result ////
-
-
+print(delta_cum_week_1.shape)
+print(delta_cum_week_1[82,...])
           
 delta_cum_median_layer_week_1 = percent(delta_cum_week_1, med)
 delta_cum_q1_layer_week_1 = percent(delta_cum_week_1, low)
@@ -877,6 +883,7 @@ plt.savefig('operational_return.png',
 plt.show()
 
 ######################################################################
+"""
 # pie charts - Operational Costs
 
 pie_labels = ['feed', 'aditiv', 'pullet', 'Vet', 'labor', 'others', 'deprec.', 'losses']
@@ -903,7 +910,7 @@ plt.savefig('operational_expenses_pie.png',
             transparent=-True,
             )
 plt.show()
-
+"""
 #################################################################################
 # probability plot of operating results
 
@@ -911,15 +918,33 @@ axis100 = np.arange(0, 100, 1)
 a = np.empty(100)
 
 for i in range(100) :
-    a[i]= (percent(delta_cum_week_1[[row_anal, ]] , i ))
+    a[i]= (percent(delta_cum_week_1[[row_anal, ]], i ))
 
-print (axis100.shape)    
-print (a.shape)
+fig, ax1 = plt.subplots()
+ax2 = ax1.twinx()
 
-fig, ax = plt.subplots()
-ax.plot(a, 100 - axis100)
-ax.set_yticks(np.arange(0, 110, 10))
-ax.grid(alpha=.3)
+ax1.plot(a, 100 - axis100)
+
+ax2.hist(delta_cum_week_1[row_anal, ],
+         bins = 30,
+         alpha = .1)
+
+#ax.hist(a, bins=12)
+ax1.set_yticks(np.arange(0, 110, 10))
+ax1.set_xlabel("Operational return / layer (LC) at {} weeks".format(row_anal+18),
+           fontsize=fontsize_x_axis_1,
+           fontstyle = fontstyle_x_axis_1
+           )
+ax1.set_ylabel('Likelihood (%)',
+           fontsize=fontsize_x_axis_1,
+           fontstyle = fontstyle_x_axis_1
+           )
+ax1.set_title('\n '.format(),
+             fontsize= fontsize_title_1,
+             )
+
+ax1.grid(alpha=.3)
+
 plt.show()
 
 
@@ -930,7 +955,7 @@ print ('=' *70)
 print('Operating Expenses - {}  - {}                           {} weeks of age'.format(group1[0],group1[1],prod_week_analysis))
 print('-' * 70)
 print('                    Q1       MD        Q3               of COOGS (MD)')
-print('Pullet Cost    : {} , {}  , {}              {} %'.format(curr(pullet_cost_q1_1[row_anal,]),
+print('Pullet Cost    : {} , {}  , {}                  {} %'.format(curr(pullet_cost_q1_1[row_anal,]),
                                                            curr(pullet_cost_median_1[row_anal,]),
                                                            curr(pullet_cost_q3_1[row_anal,]),
                                                            round_np(pullet_perc_cost_median_1[row_anal,])))
@@ -955,7 +980,7 @@ print('Labor costs    : {} , {}  , {}                  {} %'.format(curr(labor_c
                                                            curr(labor_cum_cost_q3_layer_week_1[row_anal,]),
                                                            round_np(labor_perc_cost_cum_median_week_1[row_anal,])))
 
-print('Other costs   : {} , {}  , {}                   {} %'.format(curr(other_cum_cost_q1_layer_week_1[row_anal,]),
+print('Other costs    : {} , {}  , {}                  {} %'.format(curr(other_cum_cost_q1_layer_week_1[row_anal,]),
                                                            curr(other_cum_cost_median_layer_week_1[row_anal,]),
                                                            curr(other_cum_cost_q3_layer_week_1[row_anal,]),
                                                            round_np(other_perc_cost_cum_median_week_1[row_anal,])))
@@ -1008,7 +1033,7 @@ print()
 print('-' * 70)
 
 
-print(pullet_cost_median_1.shape)
+#print(pullet_cost_median_1.shape)
 #print(pullet_var_cost_rate_1)
 #print(pullet_tot_cost_rate_1)
 

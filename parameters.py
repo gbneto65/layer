@@ -17,7 +17,7 @@ genetic1 = 1  # 1 - Hyline W36 - White / 2 - to be defined
 
 n_layers = 50000 # to be used to calculated birds / cost
 prod_week_analysis = 100   # usually 100 - define the production week for cost / earnings analysis - usually 100 wks (varies from 18 - 100)
-n_repl = 500 # idealy at least 3000
+n_repl = 100000 # idealy at least 3000
 
 wks_per_month = 4.348 # avg weeks in a month
 wks_per_year = 52.1429 # avg weeks per year
@@ -29,10 +29,10 @@ egg_std_weight = 62/1000  # std egg weight - used to calculated egg mass price
 
 # adjustment on feed consuption if needed - input 1 and 'f' for no adjustment
 
-feed_cons_adj_1 =[.013  , # % of incremet of feed consuption (if below input negative values - Ex: -.1 (-10%)) ,
-                  .015 ,     # this value should be multiplied with feed_cons_layer_day,
+feed_cons_adj_1 =[.011  , # % of incremet of feed consuption (if below input negative values - Ex: -.1 (-10%)) ,
+                  .017 ,     # this value should be multiplied with feed_cons_layer_day,
                   .014 ,     # this value should be multiplied with feed_cons_layer_day,
-                  't']
+                  'u']
 
 # adjustment on mortality if needed - input 1 and 'f' for no adjustment
 mort_adj_week_1 = [.05 ,     # % of increase of mortality rate in relation to std values 
@@ -50,7 +50,7 @@ pullet_cost_1  = [5, 7, 6, 't']  # min, max., mp, distribution
 
 
 # feed costs
-feed_cost_ton_1 = [800, 1300, 900, 't'] # min, max., mp, distribution
+feed_cost_ton_1 = [800, 1000, 900, 'f'] # min, max., mp, distribution
 
 # aditive cost 
 aditiv_cost_ton_1 = [9, 15, 10, 'f']
