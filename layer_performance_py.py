@@ -28,6 +28,13 @@ def rnd_same(min, mp, max, distr) :  # generate random numbers and create a np. 
         return np.random.uniform(min, max, (production_wks,n_repl))
     if distr.lower() == 'f' : # fixed value
         return np.full((production_wks,n_repl),mp, dtype=float )
+    if distr.lower() == 'b' : # beta pert
+        #alpha = (4 * mp + max - 5 * min) / (max - min)
+        #beta = (5 * max - min - 4 *mp) / (max - min)
+        #return (min + np.random.beta(min, max) * (max-min), (production_wks,n_repl))
+        pass
+    if  distr.lower() == 'n' : # normal distribution - std desv is estimated by dividing (max - min) / 4
+        return np.random.normal(mp, (max-min)/4,(production_wks,n_repl))
     else :
         winsound.Beep(sd1[0],sd1[1])
         winsound.Beep(sd2[0],sd2[1])
@@ -209,9 +216,6 @@ feed_rnd_cost_g_1 = rnd_same(feed_cost_ton_1[0]/1000000,
                                feed_cost_ton_1[1]/1000000,
                                feed_cost_ton_1[3])  # generate random numbers - per GRAMS od Feed
 
-#print(feed_rnd_cost_g_1)
-
-
 # aditive cost 
 verif_entry(aditiv_cost_ton_1[0],aditiv_cost_ton_1[1],aditiv_cost_ton_1[2],aditiv_cost_ton_1[3]) # verify entry
 aditiv_rnd_cost_g_1 = rnd_same(aditiv_cost_ton_1[0]/1000000,
@@ -337,17 +341,12 @@ loop = False
 ############## if affected by correction (diseases, etc)
 # mortality
 
-
 for i in range (affect_week_init - 18,  affect_week_final - 18) :
      loop = True
      
      mort_cum_week_1[i] = mort_cum_week_1[i]*(1-mort_affect_week_perc)
 
 # mortality
-     
-     
-
-
 # pullet costs
 
 
