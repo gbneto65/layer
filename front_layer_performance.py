@@ -1,19 +1,21 @@
 
-import tkinter as tk
+from tkinter import *
+#from tkinter import ttk
 from PIL import ImageTk, Image
 
 screen_x = int(800)
 screen_y = int(600)
-genetic_list = ['Hyline-W36', 'Hyline-Brown', 'other']
+
 genetic_listbox_x1 = screen_x*.15
 genetic_listbox_y1 = screen_y * .07
 
-screen = tk.Tk()
+screen = Tk()
+
 screen.minsize(screen_x, screen_y)
 screen.iconbitmap('layer_egg.ico')
 screen.title("Layers Economics Evaluator")
 
-lbl_descrip = tk.Label(screen,
+lbl_descrip = Label(screen,
                     text='Data Input - Layer A',
                     fg="gray",
                     font=(None, 12)
@@ -22,7 +24,7 @@ lbl_descrip.place(x=screen_x / 4 - 50,
                   y=screen_y * .02
                   )
 
-lbl_descrip = tk.Label(screen,
+lbl_descrip = Label(screen,
                   text='Data Input - Layer B',
                   fg="gray",
                   font=(None, 12),
@@ -31,22 +33,21 @@ lbl_descrip.place(x=screen_x / 1.4 - 50,
                   y=screen_y * .02
                   )
 
-""" list box from genetic"""
-genetic_listbox = tk.Listbox(screen,
-                             height=3,
-                             selectmode = 'SINGLE',
-                             bg = 'white',
-                             yscrollcommand = True,
-                             )
-for item in genetic_list :
-    genetic_listbox.insert(tk.END, item)
+""" OptionMenu for genetic selection"""
+def genetic_selection(event) :
+    myLabel = Label(screen, text=select_genetic_option.get()).pack()
+    print(myLabel)
+    if select_genetic_option.get() == 'W36' :
+       print('white eggs')
 
-genetic_listbox.place(x=genetic_listbox_x1,
-                      y=genetic_listbox_y1
-                      )
 
-a = genetic_listbox.get(tk.ANCHOR)
-print(a)
+genetic_options = ['W36', 'brown', "other"]
+select_genetic_option = StringVar()
+select_genetic_option.set(genetic_options[0])
+drop = OptionMenu(screen, select_genetic_option, *genetic_options, command=genetic_selection)
+drop.pack()
+
+
 
 #img = ImageTk.PhotoImage(Image.open('layer_egg.png'))
 #panel = Label(screen, image=img)
