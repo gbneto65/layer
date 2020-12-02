@@ -5,6 +5,7 @@
 # Python 
 # Version - 0.4 beta - improvements - change the performance during prefixed periods (disease outbreak simulation)
 # github gbneto65
+# before run, verify the paramters inputed in 'parameters.py' file.
 #####################################################################################
 
 import pandas as pd
@@ -17,8 +18,9 @@ from setup_parameters import *  # extra file with setup variables
 from setup_charts_parameters import *  # extra file with setup variables
 from parameters import *
 import os
-import psutil  # for RAM free 
+import psutil  # for RAM free
 
+print((chr(27) + "[2j")) # clear terminal screen
 
 def rnd_same(min, mp, max, distr) :  # generate random numbers and create a np. array with production_wks (83) , number of replicates (n_repl)
 
@@ -176,7 +178,7 @@ index_error=False
 
 ############### Zootecnical Parameters ################################################
 
-# adjustment on feed consuption if needed - input 1 and 'f' for no adjustment
+# adjustment on feed consumption if needed - input 1 and 'f' for no adjustment
 
 verif_entry(feed_cons_adj_1[0],feed_cons_adj_1[1],feed_cons_adj_1[2],feed_cons_adj_1[3]) # verify entry
 feed_rnd_adj_1 = rnd_same(feed_cons_adj_1[0],
