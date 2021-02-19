@@ -27,7 +27,13 @@ genetic1 = 1
 
 n_layers = 50000 # to be used to calculated birds / cost,  labor / cost, etc.
 
-prod_week_analysis = 100   # usually 100 - define the production week for cost / earnings analysis - usually 100 wks (varies from 18 - 100)
+
+prod_week_analysis = int(100)   # usually 100 - define the production week for cost / earnings analysis - usually 100 wks (varies from 18 - 100)
+prod_week_init = int(18)     # define the initial week of production
+
+if genetic1 == 3 :   # e
+    prod_week_analysis = int(90)
+    prod_week_init = int(19)
 
 n_repl = 1000 # idealy at least 3000
 

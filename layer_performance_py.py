@@ -163,16 +163,43 @@ if not os.path.isfile("layers_dta.xlsx") :
 
 # import database from excel - see parameters.py file
 data_hy_w36 = pd.read_excel(working_path + "/" + 'layers_dta.xlsx' ,sheet_name= group1[2]) # sheet name is defined in parameter.py 
-print(data_hy_w36.columns)
+
+# evaluate if the first production week (18) has some data
+prod_wk_init_test = data_hy_w36['avg_feed_hen_day'].iloc[0]
+"""
+# test if
+if prod_wk_init_test == '':
+        prod_wk_init = 19
+        print('begining at 19')
+else :
+    prod_wk_init = 18
+
+
+a = data_hy_w36.loc[data_hy_w36['avg_feed_hen_day'] !='', 'hen_week_age']
+print(a)
+
+
+for i in range(1, 83, -1):
+    prod_wk_final_test = data_hy_w36['avg_feed_hen_day'].iloc[i]
+    if prod_wk_final_test != '':
+        prod_wk_final = i
+        print('bingo')
+        break
+"""
+
 
 # convert to numpy
 data_1 = data_hy_w36[['feed_intake_min','feed_intake_max', 'hen_week_mort_cumulative', 'hen_day_egg_cum_min', 'hen_day_egg_cum_max', 'egg_weight_avg' ]].values  # input database and convert to np array
+print(data_1)
+
 production_wks = data_1.shape[0] # define the number of rows in database
+#print(production_wks)
+
 
 # define the row location in the array (to get results)
-row_anal = prod_week_analysis - 18 # 18 is the week of beging the production 
+row_anal = prod_week_analysis - prod_week_init   # usually 18 -
 
-index_error=False
+index_error = False
 
 ##########################################################################################
 
@@ -610,7 +637,7 @@ totalearn_perc_cum_q3_week_1 = percent(totalearn_cum_tot_rate_1, high)
 
 delta_cum_week_1 = total_earn_cum_week_1 - total_costs_1 # operational result ////
 print(delta_cum_week_1.shape)
-print(delta_cum_week_1[82,...])
+print(delta_cum_week_1[row_anal,...])
           
 delta_cum_median_layer_week_1 = percent(delta_cum_week_1, med)
 delta_cum_q1_layer_week_1 = percent(delta_cum_week_1, low)
